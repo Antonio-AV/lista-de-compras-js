@@ -1,10 +1,12 @@
-const inputItem = document.getElementById("input-item")
+import { criarItemDaLista } from "./scripts/criarItemDaLista.js";
+import verificarListaVazia from "./scripts/verificarListaVazia.js"; // Importa a função para verificar se a lista está vazia
+
 const listaDeCompras = document.getElementById("lista-de-compras")
 
 //variaveis criadas com const são constantes, ou seja, não podem ser reatribuídas
 //variaveis criadas com let podem ser reatribuídas, ou seja, podem ser modificadas
 const botaoAdicionar = document.getElementById("adicionar-item")
-let contador = 0;
+
 
 // Event listener serve pra escutar eventos, como cliques, teclas pressionadas, etc.
 // Aqui, estamos escutando o evento de clique no botão "Adicionar Item"
@@ -18,36 +20,9 @@ let contador = 0;
 // a página.
 botaoAdicionar.addEventListener("click", (evento) =>  {
     evento.preventDefault();
-    if (inputItem.value == "") {
-        alert("Por favor, digite um item.");
-        return;
-    }
-
-    const itemDaLista = document.createElement("li");
-    const containerItemDaLista = document.createElement("div");
-    containerItemDaLista.classList.add("lista-item-container");
-    const inputCheckbox = document.createElement("input");
-    inputCheckbox.type = "checkbox";
-    inputCheckbox.id = 'checkbox-' + contador++;
-    const nomeItem = document.createElement("p");
-    nomeItem.innerText = inputItem.value;
-
-    // Trabalhando com o DOM (Document Object Model), criando a estrutura HTML com sua arvore genealogica
-    // O DOM é uma representação da estrutura do documento HTML, onde cada elemento é um nó
-    // Aqui, estamos criando um item de lista (li) e adicionando um container (div) dentro dele
-    // O container tem uma classe "lista-item-container" para estilização
-    // Dentro do container, estamos criando um input do tipo checkbox e um parágrafo (p)
-    // que contém o texto do item que foi digitado no input
-    // O contador é usado para dar um ID único para cada checkbox, assim podemos identificar cada
-    // item da lista individualmente
-    // Finalmente, estamos adicionando o container ao item da lista e o item da lista ao
-    // elemento de lista principal (ul) que está no HTML
-    containerItemDaLista.appendChild(inputCheckbox);
-    containerItemDaLista.appendChild(nomeItem);
-
-    itemDaLista.appendChild(containerItemDaLista);
-
+    const itemDaLista = criarItemDaLista();
     listaDeCompras.appendChild(itemDaLista);
+    verificarListaVazia(listaDeCompras);
 })
 
-
+verificarListaVazia(listaDeCompras); // Chama a função para verificar se a lista está vazia ao carregar a página
